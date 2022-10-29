@@ -82,16 +82,23 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is too long (maximum is 128 characters)")      
       end
-      it 'passwordは英字のみ、数字のみでは登録できない' do
+      it 'passwordは数字のみでは登録できない' do
         @user.password = '000000'
         @user.password_confirmation = '000000'
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is invalid')
-        another_user = FactoryBot.build(:user)
-        another_user.password = 'aaaaaa'
-        another_user.password_confirmation = 'aaaaaa'
-        another_user.valid?
-        expect(another_user.errors.full_messages).to include('Password is invalid')      
+      end
+      it 'passwordは英字のみでは登録できない' do
+        @user.password = 'aaaaaa'
+        @user.password_confirmation = 'aaaaaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password is invalid')
+      end
+      it 'passwordは英字、数字以外の文字では登録できない' do
+        @user.password = 'ああああああ'
+        @user.password_confirmation = 'ああああああ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password is invalid')
       end
       it 'first_nameが漢字かひらがなかカタカナ以外では登録できない' do
         @user.first_name = 'aaaaaa'
