@@ -10,7 +10,7 @@ class Item < ApplicationRecord
   
   validates :item, :explanation,:image, :price, presence: true
   
-  validates :price, numericality: {only_integer: true}, length: { in: 300..9999999 }
+  validates :price, numericality: {only_integer: true, in: 300..9999999 }
 
   validates_format_of :price, with: /\A[0-9]+\z/
 
