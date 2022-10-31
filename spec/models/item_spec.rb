@@ -52,8 +52,18 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include "Shipping date can't be blank"
       end
-      it 'priceが300~9999999以外の値では登録できない' do
-        @item.price = 0
+      it 'priceが空では登録できない' do
+        @item.price = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Price is invalid"
+      end
+      it 'priceが299円以下の値では登録できない' do
+        @item.price = 299
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Price is invalid"
+      end
+      it 'priceが10,000,000円以上の値では登録できない' do
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include "Price is invalid"
       end

@@ -8,9 +8,9 @@ class Item < ApplicationRecord
 
   validates :category_id, :condition_id, :shipping_charge_id, :prefecture_id, :shipping_date_id, numericality: { other_than: 1, message: "can't be blank" } 
   
-  validates :item, :explanation,:image, presence: true
+  validates :item, :explanation,:image, :price, presence: true
   
-  validates :price, inclusion: { in: 300..9999999, message: "is invalid" }
+  validates :price, numericality: {only_integer: true}, length: { in: 300..9999999 }
 
   validates_format_of :price, with: /\A[0-9]+\z/
 
