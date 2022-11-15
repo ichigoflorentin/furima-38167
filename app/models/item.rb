@@ -12,7 +12,7 @@ class Item < ApplicationRecord
   validates :item, :explanation, :image, :price, presence: true
 
   validates :price, numericality: { only_integer: true }
-  validates :price, inclusion: { in: 300..9_999_999, message: 'is invalid' }
+  validates :price, inclusion: { in: 300..9_999_999, message: 'is outside the valid range' }
 
   validates_format_of :price, with: /\A[0-9]+\z/
 

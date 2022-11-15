@@ -60,17 +60,17 @@ RSpec.describe Item, type: :model do
       it 'priceが299円以下の値では登録できない' do
         @item.price = 299
         @item.valid?
-        expect(@item.errors.full_messages).to include 'Price is invalid'
+        expect(@item.errors.full_messages).to include 'Price is outside the valid range'
       end
       it 'priceが10,000,000円以上の値では登録できない' do
         @item.price = 10_000_000
         @item.valid?
-        expect(@item.errors.full_messages).to include 'Price is invalid'
+        expect(@item.errors.full_messages).to include 'Price is outside the valid range'
       end
       it 'priceが半角数字位以外の値では登録できない' do
         @item.price = '５５５'
         @item.valid?
-        expect(@item.errors.full_messages).to include 'Price is invalid'
+        expect(@item.errors.full_messages).to include 'Price is not a number'
       end
       it 'userが紐付いていないと保存できない' do
         @item.user = nil
