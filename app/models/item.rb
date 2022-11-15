@@ -11,10 +11,12 @@ class Item < ApplicationRecord
 
   validates :item, :explanation, :image, :price, presence: true
 
-  validates :price, numericality: { only_integer: true, in: 300..9_999_999 }
+  validates :price, numericality: { only_integer: true }
+  validates :price, inclusion: { in: 300..9_999_999, message: 'is invalid' }
 
   validates_format_of :price, with: /\A[0-9]+\z/
 
   has_one_attached :image
   belongs_to :user
+  has_one :buyer
 end
